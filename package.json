@@ -1,7 +1,7 @@
 {
-  "name": "pcl-geo-service",
+  "name": "pcl-backend-template",
   "version": "1.0.0",
-  "description": "Microservicio de Geografía para PCL",
+  "description": "Plantilla base para microservicios backend PCL",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
