@@ -1,3 +1,6 @@
+# Imagen base Node LTS
+# Este Dockerfile es común a todos los microservicios
+
 FROM node:18-alpine
 
 ENV NODE_ENV=production

@@ -1,23 +1,29 @@
-const dotenv = require('dotenv');
-dotenv.config();
+/**
+ * server.js
+ *
+ * Punto de entrada del microservicio.
+ * - Inicializa el pool de Oracle
+ * - Levanta el servidor HTTP
+ */
+require('dotenv').config();
 
 const app = require('./app');
-const config = require('./src/config');
+const { createPool } = require('./src/config/database.config');
 const logger = require('./src/utils/logger');
-const db = require('./src/models');
 
-const startServer = async () => {
+const PORT = process.env.PORT || 3000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
+
+(async () => {
   try {
-    await db.sequelize.authenticate();
-    logger.info('Database connection has been established successfully.');
+    await createPool();
+    logger.info('Oracle Database pool initialized successfully');
 
-    app.listen(config.port, () => {
-      logger.info(`Server running on port ${config.port} in ${config.env} mode`);
+    app.listen(PORT, () => {
+      logger.info(`Server running on port ${PORT} in ${NODE_ENV} mode`);
     });
   } catch (error) {
-    logger.error('Unable to connect to the database:', error);
+    logger.error('Error starting server', error);
     process.exit(1);
   }
-};
-
-startServer();
+})();

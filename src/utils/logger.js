@@ -1,18 +1,27 @@
+/**
+ * Logger
+ * ------
+ * Logger centralizado del microservicio.
+ * - En desarrollo: logs legibles por consola.
+ * - En producción: logs estructurados (JSON) para observabilidad.
+ */
+
 const winston = require('winston');
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.json()
-  ),
-  transports: [
-    new winston.transports.Console({
-      format: winston.format.simple(),
-    }),
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' }),
-  ],
+  level: isProduction ? 'info' : 'debug',
+  format: isProduction
+    ? winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+      )
+    : winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+      ),
+  transports: [new winston.transports.Console()],
 });
 
 module.exports = logger;
