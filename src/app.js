@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const healthRoutes = require('./src/api/components/health/health.routes');
 const errorHandler = require('./src/api/middlewares/errorHandler.middleware');
 const ApiError = require('./src/utils/ApiError');
+const healthRoutes = require('./api/components/health/health.routes');
 
 const app = express();
 
@@ -18,7 +19,8 @@ app.use(express.json());
 // ============================================================
 // Registro de rutas
 // ============================================================
-app.use('/api/v1/health', healthRoutes);
+app.use('/health', healthRoutes);
+app.use('/api/v1/geo', geoRoutes);
 
 // ============================================================
 // Manejo de errores
