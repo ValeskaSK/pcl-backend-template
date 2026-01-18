@@ -2,10 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 
-const healthRoutes = require('./src/api/components/health/health.routes');
-const errorHandler = require('./src/api/middlewares/errorHandler.middleware');
-const ApiError = require('./src/utils/ApiError');
-const healthRoutes = require('./api/components/health/health.routes');
+const errorHandler = require('./middlewares/errorHandler.middleware');
+const ApiError = require('./utils/ApiError');
+const healthRoutes = require('./api/routes/health');
 
 const app = express();
 
@@ -20,7 +19,7 @@ app.use(express.json());
 // Registro de rutas
 // ============================================================
 app.use('/health', healthRoutes);
-app.use('/api/v1/geo', geoRoutes);
+
 
 // ============================================================
 // Manejo de errores

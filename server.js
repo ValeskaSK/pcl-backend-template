@@ -7,7 +7,7 @@
  */
 require('dotenv').config();
 
-const app = require('./app');
+const app = require('./src/app');
 const { createPool } = require('./src/config/database.config');
 const logger = require('./src/utils/logger');
 
